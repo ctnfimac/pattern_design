@@ -49,14 +49,44 @@ class Automovil:
             print(f'Error en getAutomovil: {e.__str__()}')
 
 
-    def addAutomovil(self, *kwargs) -> None:
+    def addAutomovil(self, *args) -> None:
         try:
             self._db.connect()
-            self._db.cur.execute('INSERT INTO automovil VALUES(?,?,?,?,?)', kwargs)
+            self._db.cur.execute('INSERT INTO automovil VALUES(?,?,?,?,?)', args)
             self._db.conexion.commit()
             self._db.disconnect()
         except Exception as e:
-            print(f'Error en addAutomovil: {e.__str__()}')       
+            print(f'Error en addAutomovil: {e.__str__()}')   
+
+
+    def deleteAutomovil(self, rowId:int) -> None:
+        try:
+            if rowId:
+                self._db.connect()
+                self._db.cur.execute('DELETE FROM automovil WHERE rowid = ?', (rowId,))
+                self._db.conexion.commit()
+                self._db.disconnect()
+        except Exception as e:
+            print(f'Error en deleteAutomovil: {e.__str__()}')  
+
+
+    def updateAutomovil(self, id, **kwargs) -> None:
+        try:
+            print(id)
+            print(kwargs)
+            query_sets = ''
+            for key, value in kwargs.items():
+                if type(value) == str:
+                    value = f"'{value}'"
+                query_sets = query_sets + f'{key} = {value}, '
+
+            query = f"""UPDATE automovil SET {query_sets[:-2]} WHERE rowid = ?"""
+            self._db.connect()
+            self._db.cur.execute(query, (id,))
+            self._db.conexion.commit()
+            self._db.disconnect()
+        except Exception as e:
+            print(f'Error en updateAutomovil: {e.__str__()}')      
 
 
         

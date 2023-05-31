@@ -13,24 +13,6 @@ carpeta_db = 'db'
 nombre_db = 'test.db'
 
 if __name__ == "__main__":
-    # ruta_db = f'{os.getcwd()}/{carpeta_db}/{nombre_db}'
-    # con = sqlite3.connect(ruta_db)
-    # cur = con.cursor()
-    # cur.execute('SELECT * FROM automovil')
-    # for row in cur.fetchall():
-    #     print(row)
-
-    # auto = Automovil(1,'Ford','Ka','1.4','00FF00',3000000)
-    # print(auto)
-    # db = Database()
-    # db.connect()
-    # db.cur.execute('SELECT * FROM automovil')
-    # registros = db.cur.fetchall()
-    # print(type(registros))
-    # for row in db.cur.fetchall():
-    #     print(row)
-    # db.disconnect()
-    # print(os.getcwd())
 
     # auto = Automovil(id = 2, marca = 'Volkswagen', modelo='Polo',
     #                  motor='1.6', color='ffffff', precio=5000000)
@@ -39,7 +21,13 @@ if __name__ == "__main__":
    #  print(autos_obtenidos)
 
     #agrego un automovil nuevo
-    auto.addAutomovil('Ford','Ka','1.4','00FF00',3000000)
+    #auto.addAutomovil('Ford','Ka','1.4','00FF00',3000000)
+    
+    #elimino un automovil
+   #  auto.deleteAutomovil(4)
+
+    #edito un automovil
+    auto.updateAutomovil(1, modelo='Gol Trend', precio=4000000)
   
 
 
