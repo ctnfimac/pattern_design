@@ -49,13 +49,11 @@ class Automovil:
             print(f'Error en getAutomovil: {e.__str__()}')
 
 
-    # TODO: Not found
     def addAutomovil(self, *kwargs) -> None:
         try:
             self._db.connect()
-            print(kwargs)
-            purchases = [('Ford','Ka','1.4','00FF00',3000000),]
-            self._db.cur.executemany('INSERT INTO automovil VALUES(?,?,?,?,?)', purchases)
+            self._db.cur.execute('INSERT INTO automovil VALUES(?,?,?,?,?)', kwargs)
+            self._db.conexion.commit()
             self._db.disconnect()
         except Exception as e:
             print(f'Error en addAutomovil: {e.__str__()}')       
