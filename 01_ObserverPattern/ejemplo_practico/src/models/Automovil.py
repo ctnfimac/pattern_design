@@ -1,4 +1,7 @@
 from .Database import Database
+from src.pattern.observer.SubjectAutomovil import SubjectAutomovil
+from src.pattern.observer.ObserverAutomovilCrud import ObserverAutomovilCrud
+
 
 class Automovil:
     _id:int
@@ -30,6 +33,9 @@ class Automovil:
             self._color = kwargs['color']
             self._precio = kwargs['precio']
         self._db = Database()
+        self.__subject = SubjectAutomovil()
+        observer_crud = ObserverAutomovilCrud()
+        self.__subject.add(observer_crud)
 
     def __str__(self) -> str:
         return f'{self._marca} {self._modelo}'
@@ -39,11 +45,12 @@ class Automovil:
         try:
             self._db.connect()
             if id:
-                self._db.cur.execute('SELECT id, marca, modelo, motor, color, precio FROM automovil WHERE id=?', (id,))
+                self._db.cur.execute('SELECT rowid, marca, modelo, motor, color, precio FROM automovil WHERE rowid=?', (id,))
             else:
-                self._db.cur.execute('SELECT * FROM automovil')
+                self._db.cur.execute('SELECT rowid, marca, modelo, motor, color, precio FROM automovil')
             registros = self._db.cur.fetchall()
             self._db.disconnect()
+            self.__subject.operation('Ver')
             return registros
         except Exception as e:
             print(f'Error en getAutomovil: {e.__str__()}')
@@ -55,6 +62,7 @@ class Automovil:
             self._db.cur.execute('INSERT INTO automovil VALUES(?,?,?,?,?)', args)
             self._db.conexion.commit()
             self._db.disconnect()
+            self.__subject.operation('Alta')
         except Exception as e:
             print(f'Error en addAutomovil: {e.__str__()}')   
 
@@ -66,6 +74,7 @@ class Automovil:
                 self._db.cur.execute('DELETE FROM automovil WHERE rowid = ?', (rowId,))
                 self._db.conexion.commit()
                 self._db.disconnect()
+                self.__subject.operation('Baja')
         except Exception as e:
             print(f'Error en deleteAutomovil: {e.__str__()}')  
 
@@ -85,6 +94,7 @@ class Automovil:
             self._db.cur.execute(query, (id,))
             self._db.conexion.commit()
             self._db.disconnect()
+            self.__subject.operation('Modifica')
         except Exception as e:
             print(f'Error en updateAutomovil: {e.__str__()}')      
 

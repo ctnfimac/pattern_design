@@ -3,10 +3,9 @@
    observador 1: guardará en un log las distintas operaciónes de un crud
    observarod 2: guardará en un log si un auto cambia de motor o color
 """
-import os
-import sqlite3
+
 from src.models.Automovil import Automovil
-from src.models.Database import Database
+
 
 # Carpeta donde se encuentra la base de datos Sqlite3 a utilizar
 carpeta_db = 'db'
@@ -14,20 +13,19 @@ nombre_db = 'test.db'
 
 if __name__ == "__main__":
 
-    # auto = Automovil(id = 2, marca = 'Volkswagen', modelo='Polo',
-    #                  motor='1.6', color='ffffff', precio=5000000)
-    auto = Automovil()
+   auto = Automovil()
    #  autos_obtenidos = auto.getAutomovil(1)
-   #  print(autos_obtenidos)
+   autos_obtenidos = auto.getAutomovil()
+   print(autos_obtenidos)
 
-    #agrego un automovil nuevo
-    #auto.addAutomovil('Ford','Ka','1.4','00FF00',3000000)
+   #agrego un automovil nuevo
+   # auto.addAutomovil('Chevrolet','Onix','1.4','00FFFF',3500000)
     
-    #elimino un automovil
-   #  auto.deleteAutomovil(4)
+   #elimino un automovil
+   # auto.deleteAutomovil(4)
 
-    #edito un automovil
-    auto.updateAutomovil(1, modelo='Gol Trend', precio=4000000)
+   #edito un automovil
+   # auto.updateAutomovil(4, modelo='Prisma', precio=5000000)
   
 
 
