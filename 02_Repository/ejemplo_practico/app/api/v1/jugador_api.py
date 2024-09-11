@@ -17,6 +17,6 @@ def read_jugadores(db: Session = Depends(get_db)):
 
 
 @router_jugador_api.post("/jugadores/", response_model=JugadorRequest)
-async def crear_jugador(jugador: JugadorCreate, db: Session = Depends(get_db)):
+async def crear_jugador(jugador: JugadorCreate, club_id: int, db: Session = Depends(get_db)):
     jugador_services = JugadorServices(db)
-    return jugador_services.crear_jugador(jugador=jugador)
+    return jugador_services.crear_jugador(jugador=jugador, club_id=club_id)
