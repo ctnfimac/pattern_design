@@ -34,7 +34,7 @@ project_root/
 │   │
 │   ├── repositories/                # Implementaciones de repositorios
 │   │   ├── club_repository.py       # Repositorio para el modelo de Club
-│   │   ├── jugador_repository.py
+│   │   ├── jugador_repository.py    # Repositorio para el modelo de Jugador
 │   │   ├── __init__.py
 │   │
 │   ├── services/                    # Lógica de negocio o capa de servicio
@@ -44,7 +44,7 @@ project_root/
 │   │
 │   ├── schemas/                     # Esquemas Pydantic (validación de datos)
 │   │   ├── club_schemas.py          # Esquemas de entrada y salida para clubes
-│   │   ├── jugador_schema.py       # Esquemas para jugadores
+│   │   ├── jugador_schema.py        # Esquemas para jugadores
 │   │   ├── __init__.py
 │   │
 │   ├── main.py                      # Punto de entrada de la aplicación (FastAPI)
@@ -54,9 +54,24 @@ project_root/
 └── README.md                        # Descripción del proyecto
 ```
 
+### Creación de base de datos de prueba
+
+Para el segundo ejemplo del patrón repository se ve como se cambia fácilmente de una base
+de datos SQlite a una Postgresql sin necesitad de modificar el código de la lógica de negocio.
+
+Creación de la base de datos postgres con docker:
+```
+docker run -d --name repositorydb -p 3009:5432 -e POSTGRES_PASSWORD=123456 -e POSTGRES_USER=christian -e POSTGRES_DB=repositorydb  postgres
+```
+Para conectarse desde un cliente psql
+```
+psql -h localhost -p 3009 -U christian -d repositorydb
+```
+
+
 
 ### Fuentes:
-https://www.youtube.com/watch?v=b2tPRbQJing
-https://www.youtube.com/watch?v=vMVEYC-rTeQ
-https://www.youtube.com/watch?v=QqsH0OgqafA
-https://platzi.com/blog/patron-repository/
+- https://www.youtube.com/watch?v=b2tPRbQJing
+- https://www.youtube.com/watch?v=vMVEYC-rTeQ
+- https://www.youtube.com/watch?v=QqsH0OgqafA
+- https://platzi.com/blog/patron-repository/
