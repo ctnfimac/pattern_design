@@ -1,7 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from models.jugador import Jugador
-from models.club import Club
+from mysql.connector import Error
 from schemas.jugador_schema import JugadorCreate
 
 
@@ -19,5 +18,18 @@ class JugadorRepository:
     
     
     def create_jugador(self, jugador: JugadorCreate, club_id: int):
-        pass
+        try:
+            cursor = self.db.cursor()
+            cursor.execute(
+                """INSERT INTO jugadores(nombre, dni, owner_club_id)
+                VALUES(%s, %s, %s);""",
+                (jugador.nombre, jugador.dni, club_id)
+            )
+            self.db.commit()
+            id = cursor.lastrowid
+            return {"id": id, "nombre": jugador.nombre, "dni" : jugador.dni, "owner_club_id": club_id}
+        
+        except Error as e:
+            print(f"Error al insertar los datos: {e}")
+            raise HTTPException(status_code=500, detail="Error al insertar los datos")
     

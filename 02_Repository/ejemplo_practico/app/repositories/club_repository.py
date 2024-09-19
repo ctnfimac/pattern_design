@@ -1,5 +1,6 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from models.club import Club
+from mysql.connector import Error
 from schemas.club_schema import ClubCreate
 
 
@@ -15,4 +16,16 @@ class ClubRepository:
         return resultado
     
     def post_club(self, club: ClubCreate):
-        pass
+        try:
+            cursor = self.db.cursor()
+            cursor.execute(
+                """INSERT INTO clubes(nombre, capacidad)
+                VALUES(%s, %s);""",
+                (club.nombre, club.capacidad)
+            )
+            self.db.commit()
+
+            return {"nombre": club.nombre, "capacidad" : club.capacidad}
+        except Error as e:
+            print(f"Error al insertar los datos: {e}")
+            raise HTTPException(status_code=500, detail="Error al insertar los datos")
