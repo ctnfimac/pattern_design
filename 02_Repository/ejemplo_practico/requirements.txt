@@ -4,3 +4,4 @@ uvicorn==0.30.6
 psycopg2==2.9.9
 fastapi-utils==0.7.0
 pydantic==2.9.0
+mysql-connector-python==9.0.0

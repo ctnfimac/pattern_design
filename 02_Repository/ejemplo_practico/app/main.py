@@ -1,12 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
-from db.base import Base
-from db.base import engine
 from api.v1.jugador_api import router_jugador_api
 from api.v1.club_api import router_club_api
 
 
-Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 app.include_router(router_jugador_api)

@@ -12,22 +12,12 @@ class JugadorRepository:
 
 
     def get_jugadores(self, skip:int, limit:int):
-        return self.db.query(Jugador).offset(skip).limit(limit).all()
+        cursor = self.db.cursor(dictionary=True)
+        cursor.execute("SELECT id, nombre, dni, owner_club_id FROM jugadores")
+        resultado = cursor.fetchall()
+        return resultado
     
     
     def create_jugador(self, jugador: JugadorCreate, club_id: int):
-        club = self.db.query(Club).filter(Club.id == club_id).first()
-
-        if not club:
-            raise HTTPException(status_code=404, detail="Club no existente")
-
-        jugador_nuevo = Jugador(
-            nombre=jugador.nombre, 
-            dni=jugador.dni,
-            owner_club_id = club_id
-        )
-        self.db.add(jugador_nuevo)
-        self.db.commit()
-        self.db.refresh(jugador_nuevo)
-        return jugador_nuevo
+        pass
     

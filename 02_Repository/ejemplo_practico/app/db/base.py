@@ -1,24 +1,23 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from fastapi import FastAPI, HTTPException
+import mysql.connector
+from mysql.connector import Error
 
-SQLALCHEMY_DATABASE_POSTGRES_URL = 'postgresql://christian:123456@localhost:3009/repositorydb'
+def session_local():
+    try:
+        connection = mysql.connector.connect(
+            host='localhost', 
+            database='02repository',
+            user='root',
+            password=''
+        )
+        if connection.is_connected():
+            return connection
+    except Error as e:
+        raise HTTPException(status_code=500, detail="Error al conectar a la base de datos")
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_POSTGRES_URL,
-    echo=True,
-)
-
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
-
-Base = declarative_base()
 
 def get_db():
-    db = SessionLocal()
+    db = session_local()
     try:
         yield db
     finally:

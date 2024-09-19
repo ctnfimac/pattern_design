@@ -14,7 +14,7 @@ class ClubCreate(BaseModel):
 class ClubResponse(BaseModel):
     nombre: str
     capacidad: int
-    jugadores: list[JugadorRequest] = []
+    #jugadores: list[JugadorRequest] = []
 
-    class Config:
-        orm_mode = True
+    #class Config:
+    #    orm_mode = True

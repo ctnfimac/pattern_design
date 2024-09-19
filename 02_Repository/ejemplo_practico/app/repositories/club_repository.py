@@ -9,14 +9,10 @@ class ClubRepository:
         self.db = db
 
     def get_clubes(self):
-        return self.db.query(Club).all()
+        cursor = self.db.cursor(dictionary=True)
+        cursor.execute("SELECT nombre, capacidad FROM clubes")
+        resultado = cursor.fetchall()
+        return resultado
     
     def post_club(self, club: ClubCreate):
-        club_nuevo = Club(
-            nombre = club.nombre,
-            capacidad = club.capacidad
-        )
-        self.db.add(club_nuevo)
-        self.db.commit()
-        self.db.refresh(club_nuevo)
-        return club_nuevo
+        pass

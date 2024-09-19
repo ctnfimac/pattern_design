@@ -68,6 +68,26 @@ Para conectarse desde un cliente psql
 psql -h localhost -p 3009 -U christian -d repositorydb
 ```
 
+### Creación de la base de datos Mysql
+Esto es para el ejemplo de cambiar a una base de datos mysql 
+y sin utilizar un ORM
+```
+CREATE TABLE clubes(
+	 id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    capacidad INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE jugadores(
+	Wid INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL UNIQUE,
+    dni VARCHAR(9) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    owner_club_id INT, 
+	FOREIGN KEY (owner_club_id) REFERENCES clubes(id) ON DELETE CASCADE
+);
+```
 
 
 ### Fuentes:
