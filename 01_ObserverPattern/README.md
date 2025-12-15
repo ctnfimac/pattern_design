@@ -44,8 +44,8 @@ personal
 
 
 #### Referencias:
-https://refactoring.guru/es/design-patterns/observer
-https://stackoverflow.com/questions/64505/sending-mail-from-python-using-smtp (para el envio de email)
+- https://refactoring.guru/es/design-patterns/observer
+- https://stackoverflow.com/questions/64505/sending-mail-from-python-using-smtp (para el envio de email)
 
 
 
