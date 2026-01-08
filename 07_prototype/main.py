@@ -17,7 +17,7 @@ class Pokemon(Prototype):
 
 
     def clone(self):# -> Pokemon: # type: ignore
-        return Pokemon(self.name, self.type, self.level, self.attacks)
+        return Pokemon(self.name, self.type, self.level, [*self.attacks])
 
     def display_info(self) -> None:
         print(f"Nombre: {self.name}\nTipo: {self.type}\nNivel: {self.level}\nAtaques: {','.join(self.attacks)}")
@@ -50,6 +50,7 @@ if __name__ == "__main__":
     charizard_obj_3 = charizard_obj.clone()
     charizard_obj_3.name = "Charmileon"
     charizard_obj_3.level = "2"
+    charizard_obj_3.attacks.append("patadas")
     print(charizard_obj_3)
     charizard_obj_3.display_info()
 
